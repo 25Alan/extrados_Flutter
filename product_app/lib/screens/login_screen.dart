@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:product_app/interface/input_decorations.dart';
 import 'package:product_app/providers/login_provider.dart';
@@ -109,18 +111,23 @@ class _FormLogin extends StatelessWidget {
                 disabledColor: Colors.grey,
                 elevation: 8,
                 color: Colors.deepPurple,
+                onPressed: formLogin.isLoading
+                    ? null
+                    : () async {
+                        FocusScope.of(context).unfocus();
+                        formLogin.isLoading = true;
+                        await Future.delayed(const Duration(seconds: 4));
+                        formLogin.isLoading = false;
+                        Navigator.pushReplacementNamed(context, 'home');
+                      },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  child: const Text(
-                    'SIGN-IN',
-                    style: TextStyle(color: Colors.white),
+                  child: Text(
+                    formLogin.isLoading ? 'WAIT' : 'SIGN-IN',
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
-                onPressed: () {
-                  if (formLogin.isFormValid())
-                    Navigator.pushReplacementNamed(context, 'home');
-                },
               ),
             ],
           )),
