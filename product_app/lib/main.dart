@@ -12,7 +12,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => ServiceProducts())],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
