@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:product_app/models/models.dart';
+
 class CardProduct extends StatelessWidget {
-  const CardProduct({super.key});
+  const CardProduct({super.key, required this.product});
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -14,19 +18,27 @@ class CardProduct extends StatelessWidget {
         decoration: _borderCard(),
         child: Stack(
           alignment: Alignment.bottomLeft,
-          children: const [
-            _BackgroundCard(),
-            _DetailsProduct(),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: _PriceProduct(),
+          children: [
+            _BackgroundCard(
+              product.picture,
+            ),
+            _DetailsProduct(
+              nameProduct: product.name,
+              idProduct: product.id!,
             ),
             Positioned(
               top: 0,
-              left: 0,
-              child: _NotAvalaible(),
-            )
+              right: 0,
+              child: _PriceProduct(
+                priceProduct: product.price,
+              ),
+            ),
+            if (!product.available)
+              const Positioned(
+                top: 0,
+                left: 0,
+                child: _NotAvalaible(),
+              )
           ],
         ),
       ),
@@ -75,7 +87,8 @@ class _NotAvalaible extends StatelessWidget {
 }
 
 class _PriceProduct extends StatelessWidget {
-  const _PriceProduct();
+  const _PriceProduct({required this.priceProduct});
+  final double priceProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -90,13 +103,13 @@ class _PriceProduct extends StatelessWidget {
           bottomLeft: Radius.circular(25),
         ),
       ),
-      child: const FittedBox(
+      child: FittedBox(
         fit: BoxFit.contain,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            '\$ 255.92',
-            style: TextStyle(
+            '\$$priceProduct',
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
             ),
@@ -108,7 +121,12 @@ class _PriceProduct extends StatelessWidget {
 }
 
 class _DetailsProduct extends StatelessWidget {
-  const _DetailsProduct();
+  const _DetailsProduct({
+    required this.nameProduct,
+    required this.idProduct,
+  });
+  final String nameProduct;
+  final String idProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -119,27 +137,25 @@ class _DetailsProduct extends StatelessWidget {
         width: double.infinity,
         height: 70,
         decoration: _boxDecorationsDetails(),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                'Disco 1',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                'id - Disco',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              )
-            ]),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            nameProduct,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            idProduct,
+            style: const TextStyle(
+              fontSize: 15,
+              color: Colors.white,
+            ),
+          )
+        ]),
       ),
     );
   }
@@ -154,7 +170,8 @@ class _DetailsProduct extends StatelessWidget {
 }
 
 class _BackgroundCard extends StatelessWidget {
-  const _BackgroundCard();
+  const _BackgroundCard(this.urlImage);
+  final String? urlImage;
 
   @override
   Widget build(BuildContext context) {
@@ -163,9 +180,9 @@ class _BackgroundCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 400,
-        child: const FadeInImage(
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
+        child: FadeInImage(
+          placeholder: const AssetImage('assets/jar-loading.gif'),
+          image: NetworkImage(urlImage!),
           fit: BoxFit.cover,
         ),
       ),
