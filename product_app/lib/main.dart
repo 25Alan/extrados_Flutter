@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'login': (_) => const LoginScreen(),
         'home': (_) => const HomeScreen(),
+        'product': (_) => const DetailsProductScreen(),
       },
       theme: ThemeData(
         appBarTheme: const AppBarTheme(elevation: 0, color: Colors.indigo),
