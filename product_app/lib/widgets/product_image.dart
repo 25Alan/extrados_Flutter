@@ -25,6 +25,7 @@ class ProductImage extends StatelessWidget {
               : FadeInImage(
                   placeholder: const AssetImage('assets/jar-loading.gif'),
                   image: NetworkImage(urlImage!),
+                  fit: BoxFit.cover,
                 ),
         ),
       ),
