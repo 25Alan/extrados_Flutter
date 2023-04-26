@@ -20,7 +20,7 @@ class CardProduct extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           children: [
             _BackgroundCard(
-              product.picture,
+              urlImage: product.picture,
             ),
             _DetailsProduct(
               nameProduct: product.name,
@@ -170,7 +170,7 @@ class _DetailsProduct extends StatelessWidget {
 }
 
 class _BackgroundCard extends StatelessWidget {
-  const _BackgroundCard(this.urlImage);
+  const _BackgroundCard({this.urlImage});
   final String? urlImage;
 
   @override
@@ -180,11 +180,16 @@ class _BackgroundCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 400,
-        child: FadeInImage(
-          placeholder: const AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage(urlImage!),
-          fit: BoxFit.cover,
-        ),
+        child: urlImage == null
+            ? const Image(
+                image: AssetImage('assets/no-image.png'),
+                fit: BoxFit.cover,
+              )
+            : FadeInImage(
+                placeholder: const AssetImage('assets/jar-loading.gif'),
+                image: NetworkImage(urlImage!),
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }
