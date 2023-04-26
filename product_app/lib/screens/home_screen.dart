@@ -19,7 +19,11 @@ class HomeScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: productsServices.products.length,
         itemBuilder: (BuildContext context, int index) => GestureDetector(
-          onTap: () => Navigator.pushNamed(context, 'product'),
+          onTap: () {
+            productsServices.selectedProduct =
+                productsServices.products[index].copy();
+            Navigator.pushNamed(context, 'product');
+          },
           child: CardProduct(
             product: productsServices.products[index],
           ),

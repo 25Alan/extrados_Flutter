@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:product_app/interface/input_decorations.dart';
+import 'package:product_app/services/services.dart';
 import 'package:product_app/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class DetailsProductScreen extends StatelessWidget {
   const DetailsProductScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final productServices = Provider.of<ServiceProducts>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
           Stack(
             children: [
-              const ProductImage(),
+              ProductImage(
+                urlImage: productServices.selectedProduct.picture,
+              ),
               Positioned(
                 top: 60,
                 left: 20,
