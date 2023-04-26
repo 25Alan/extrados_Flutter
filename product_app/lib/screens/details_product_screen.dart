@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:product_app/interface/input_decorations.dart';
 import 'package:product_app/providers/product_provider.dart';
 import 'package:product_app/services/services.dart';
@@ -15,7 +16,7 @@ class DetailsProductScreen extends StatelessWidget {
     final productServices = Provider.of<ServiceProducts>(context);
 
     return ChangeNotifierProvider(
-      create: (_) => ProductFormProvider(productServices.selectedProduct),
+      create: (_) => ProductProvider(productServices.selectedProduct),
       child: _ProductDetailsBody(productServices: productServices),
     );
   }
@@ -85,7 +86,7 @@ class _FormProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productForm = Provider.of<ProductFormProvider>(context);
+    final productForm = Provider.of<ProductProvider>(context);
     final product = productForm.product;
 
     return Padding(
@@ -105,6 +106,7 @@ class _FormProduct extends StatelessWidget {
               onChanged: (value) => product.name = value,
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Required name';
+                return null;
               },
               decoration: InputDecorations.authInputDecorations(
                 hintText: 'Name of product',
@@ -115,6 +117,9 @@ class _FormProduct extends StatelessWidget {
               height: 30,
             ),
             TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              ],
               initialValue: '\$ ${product.price}',
               onChanged: (value) => {
                 double.tryParse(value) == null
@@ -134,7 +139,7 @@ class _FormProduct extends StatelessWidget {
               value: product.available,
               title: const Text('Avalaible'),
               activeColor: Colors.indigo,
-              onChanged: (value) {},
+              onChanged: productForm.updateAvailability,
             ),
             const SizedBox(
               height: 30,

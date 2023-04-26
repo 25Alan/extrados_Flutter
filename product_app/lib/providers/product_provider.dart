@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:product_app/models/models.dart';
 
-class ProductFormProvider extends ChangeNotifier {
+class ProductProvider extends ChangeNotifier {
   GlobalKey<FormState> keyForm = GlobalKey();
   Product product;
 
-  ProductFormProvider(this.product);
+  ProductProvider(this.product);
 
   bool isFormValid() {
     return keyForm.currentState?.validate() ?? false;
+  }
+
+  updateAvailability(bool value) {
+    print(value);
+    product.available = value;
+    notifyListeners();
   }
 }
