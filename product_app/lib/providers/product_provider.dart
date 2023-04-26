@@ -12,7 +12,6 @@ class ProductProvider extends ChangeNotifier {
   }
 
   updateAvailability(bool value) {
-    print(value);
     product.available = value;
     notifyListeners();
   }

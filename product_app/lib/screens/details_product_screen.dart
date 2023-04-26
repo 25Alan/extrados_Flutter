@@ -32,6 +32,8 @@ class _ProductDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productForm = Provider.of<ProductProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
@@ -75,7 +77,11 @@ class _ProductDetailsBody extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.save),
-        onPressed: () {},
+        onPressed: () async {
+          if (!productForm.isFormValid()) return;
+
+          await productServices.saveOrCreate(productForm.product);
+        },
       ),
     );
   }
@@ -96,56 +102,59 @@ class _FormProduct extends StatelessWidget {
         width: double.infinity,
         decoration: _buildFormDecorations(),
         child: Form(
+            key: productForm.keyForm,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              initialValue: product.name,
-              onChanged: (value) => product.name = value,
-              validator: (value) {
-                if (value == null || value.isEmpty) return 'Required name';
-                return null;
-              },
-              decoration: InputDecorations.authInputDecorations(
-                hintText: 'Name of product',
-                labelText: 'Name:',
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            TextFormField(
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  initialValue: product.name,
+                  onChanged: (value) => product.name = value,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return 'Required name';
+                    return null;
+                  },
+                  decoration: InputDecorations.authInputDecorations(
+                    hintText: 'Name of product',
+                    labelText: 'Name:',
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^(\d+)?\.?\d{0,2}'))
+                  ],
+                  initialValue: '\$ ${product.price}',
+                  onChanged: (value) => {
+                    double.tryParse(value) == null
+                        ? product.price = 0
+                        : product.price = double.parse(value)
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecorations.authInputDecorations(
+                    hintText: '\$',
+                    labelText: 'Price:',
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                SwitchListTile.adaptive(
+                  value: product.available,
+                  title: const Text('Avalaible'),
+                  activeColor: Colors.indigo,
+                  onChanged: productForm.updateAvailability,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
               ],
-              initialValue: '\$ ${product.price}',
-              onChanged: (value) => {
-                double.tryParse(value) == null
-                    ? product.price = 0
-                    : product.price = double.parse(value)
-              },
-              keyboardType: TextInputType.number,
-              decoration: InputDecorations.authInputDecorations(
-                hintText: '\$',
-                labelText: 'Price:',
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            SwitchListTile.adaptive(
-              value: product.available,
-              title: const Text('Avalaible'),
-              activeColor: Colors.indigo,
-              onChanged: productForm.updateAvailability,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-          ],
-        )),
+            )),
       ),
     );
   }
