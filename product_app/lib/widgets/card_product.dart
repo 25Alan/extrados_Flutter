@@ -170,8 +170,8 @@ class _DetailsProduct extends StatelessWidget {
 }
 
 class _BackgroundCard extends StatelessWidget {
-  const _BackgroundCard({this.urlImage});
-  final String? urlImage;
+  const _BackgroundCard({required this.urlImage});
+  final String urlImage;
 
   @override
   Widget build(BuildContext context) {
@@ -180,14 +180,14 @@ class _BackgroundCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 400,
-        child: urlImage == null
+        child: urlImage.isEmpty
             ? const Image(
                 image: AssetImage('assets/no-image.png'),
                 fit: BoxFit.cover,
               )
             : FadeInImage(
                 placeholder: const AssetImage('assets/jar-loading.gif'),
-                image: NetworkImage(urlImage!),
+                image: NetworkImage(urlImage),
                 fit: BoxFit.cover,
               ),
       ),

@@ -40,7 +40,7 @@ class ServiceProducts extends ChangeNotifier {
     notifyListeners();
 
     if (product.id == null) {
-      newProduct(product);
+      await newProduct(product);
     } else {
       await updateProduct(product);
     }
@@ -61,7 +61,8 @@ class ServiceProducts extends ChangeNotifier {
   }
 
   Future<String> newProduct(Product product) async {
-    final url = Uri.https(_baseUrl, 'product/${product.id}.json');
+    final url = Uri.https(_baseUrl, 'product.json');
+    product.picture = '';
     final response = await http.post(url, body: product.toJson());
     final decodeData = json.decode(response.body);
 
