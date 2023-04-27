@@ -68,6 +68,8 @@ class ServiceProducts extends ChangeNotifier {
 
     product.id = decodeData['name'];
 
+    products.add(product);
+
     return '';
   }
 }
