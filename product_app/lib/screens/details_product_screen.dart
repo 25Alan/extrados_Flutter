@@ -35,7 +35,7 @@ class _ProductDetailsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final productForm = Provider.of<ProductProvider>(context);
 
-    return Scaffold(
+    return Scaffold( 
       body: SingleChildScrollView(
         child: Column(children: [
           Stack(
@@ -63,6 +63,12 @@ class _ProductDetailsBody extends StatelessWidget {
                     final ImagePicker picker = ImagePicker();
                     final XFile? image =
                         await picker.pickImage(source: ImageSource.camera);
+                    FilterQuality.high;
+                    if(image == null) {
+                      return;
+                    } else {
+                      productServices.updatePictureCardProduct(image.path );
+                    }
                   },
                   icon: const Icon(
                     Icons.camera,
@@ -79,7 +85,7 @@ class _ProductDetailsBody extends StatelessWidget {
                     final ImagePicker picker = ImagePicker();
                     final XFile? image =
                         await picker.pickImage(source: ImageSource.gallery);
-                    print(image?.path);
+                    FilterQuality.high;
                   },
                   icon: const Icon(
                     Icons.file_present,
@@ -102,6 +108,8 @@ class _ProductDetailsBody extends StatelessWidget {
         onPressed: () async {
           if (!productForm.isFormValid()) return;
 
+          final String? imageUrl = await productServices.uploadImage();
+          print(imageUrl);
           await productServices.saveOrCreate(productForm.product);
         },
       ),

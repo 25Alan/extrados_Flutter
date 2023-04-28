@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:product_app/models/models.dart';
@@ -180,17 +182,25 @@ class _BackgroundCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 400,
-        child: urlImage.isEmpty
-            ? const Image(
+        child: getImage(urlImage),
+      ),
+    );
+  }
+
+  Widget getImage (String picture) {
+    if(picture == '' ) {
+      return const Image(
                 image: AssetImage('assets/no-image.png'),
                 fit: BoxFit.cover,
-              )
-            : FadeInImage(
+              );
+    }
+    if(picture.startsWith('http')) {
+      return FadeInImage(
                 placeholder: const AssetImage('assets/jar-loading.gif'),
                 image: NetworkImage(urlImage),
                 fit: BoxFit.cover,
-              ),
-      ),
-    );
+              );
+    }
+    return Image.file( File(picture), fit: BoxFit.cover,);  
   }
 }

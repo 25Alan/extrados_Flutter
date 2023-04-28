@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:product_app/models/models.dart';
@@ -8,6 +9,7 @@ class ServiceProducts extends ChangeNotifier {
   final String _baseUrl = 'flutter-extrados-default-rtdb.firebaseio.com';
   final List<Product> products = [];
   late Product selectedProduct;
+  File? newPicture; 
 
   bool isLoading = true;
   bool isSaving = false;
@@ -71,5 +73,33 @@ class ServiceProducts extends ChangeNotifier {
     products.add(product);
 
     return '';
+  }
+
+  void updatePictureCardProduct (String path) {
+    selectedProduct.picture = path;
+    newPicture = File.fromUri(Uri(path: path));
+
+    notifyListeners();
+  }
+
+  Future<String?> uploadImage () async {
+    if(newPicture == null) return null;
+
+    isSaving = true;
+    notifyListeners();
+
+    final url = Uri.parse('uri');
+
+    final imageUploadRequest = http.MultipartRequest(
+      'POST', url
+    );
+    final finalPath = await http.MultipartFile.fromPath('file', newPicture!.path );
+    imageUploadRequest.files.add(finalPath);
+    final streamResponse = await imageUploadRequest.send();
+    final res = await http.Response.fromStream(streamResponse);
+
+    newPicture = null;
+    final data = json.decode(res.body);
+    return data['secure_url'];
   }
 }

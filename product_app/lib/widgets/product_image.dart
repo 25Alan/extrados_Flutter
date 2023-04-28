@@ -19,7 +19,7 @@ class ProductImage extends StatelessWidget {
               topLeft: Radius.circular(45),
               topRight: Radius.circular(45),
             ),
-            child: urlImage == null
+            child: urlImage == ''
                 ? const Image(
                     image: AssetImage('assets/no-image.png'),
                     fit: BoxFit.cover,
