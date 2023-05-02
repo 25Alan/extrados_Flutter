@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,7 +23,6 @@ class DetailsProductScreen extends StatelessWidget {
 
 class _ProductDetailsBody extends StatelessWidget {
   const _ProductDetailsBody({
-    super.key,
     required this.productServices,
   });
 
@@ -35,7 +32,7 @@ class _ProductDetailsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final productForm = Provider.of<ProductProvider>(context);
 
-    return Scaffold( 
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
           Stack(
@@ -60,37 +57,24 @@ class _ProductDetailsBody extends StatelessWidget {
                 right: 20,
                 child: IconButton(
                   onPressed: () async {
-                    final ImagePicker picker = ImagePicker();
-                    final XFile? image =
-                        await picker.pickImage(source: ImageSource.camera);
-                    FilterQuality.high;
-                    if(image == null) {
+                    XFile? image = await ImagePicker()
+                        .pickImage(source: ImageSource.camera);
+                    PickedFile? picker =
+                        image != null ? PickedFile(image.path) : null;
+                    /* final picker = new ImagePicker();
+                        final PickedFile? pickedFile =
+                            await picker.pickImage(source: ImageSource.gallery);*/
+
+                    if (picker == null) {
                       return;
-                    } else {
-                      productServices.updatePictureCardProduct(image.path );
                     }
+
+                    productServices.updatePictureCardProduct(picker.path);
                   },
                   icon: const Icon(
                     Icons.camera,
                     size: 40,
                     color: Colors.black,
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 120,
-                right: 20,
-                child: IconButton(
-                  onPressed: () async {
-                    final ImagePicker picker = ImagePicker();
-                    final XFile? image =
-                        await picker.pickImage(source: ImageSource.gallery);
-                    FilterQuality.high;
-                  },
-                  icon: const Icon(
-                    Icons.file_present,
-                    size: 40,
-                    color: Color.fromRGBO(0, 0, 0, 1),
                   ),
                 ),
               ),
@@ -104,14 +88,22 @@ class _ProductDetailsBody extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.save),
-        onPressed: () async {
-          if (!productForm.isFormValid()) return;
+        onPressed: productServices.isSaving
+            ? null
+            : () async {
+                if (!productForm.isFormValid()) return;
 
-          final String? imageUrl = await productServices.uploadImage();
-          print(imageUrl);
-          await productServices.saveOrCreate(productForm.product);
-        },
+                final String? imageUrl = await productServices.uploadImage();
+
+                if (imageUrl != null) productForm.product.picture = imageUrl;
+
+                await productServices.saveOrCreate(productForm.product);
+              },
+        child: productServices.isSaving
+            ? const CircularProgressIndicator(
+                color: Colors.black,
+              )
+            : const Icon(Icons.save),
       ),
     );
   }

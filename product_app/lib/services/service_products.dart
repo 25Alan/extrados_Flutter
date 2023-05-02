@@ -9,7 +9,7 @@ class ServiceProducts extends ChangeNotifier {
   final String _baseUrl = 'flutter-extrados-default-rtdb.firebaseio.com';
   final List<Product> products = [];
   late Product selectedProduct;
-  File? newPicture; 
+  File? newPicture;
 
   bool isLoading = true;
   bool isSaving = false;
@@ -64,7 +64,7 @@ class ServiceProducts extends ChangeNotifier {
 
   Future<String> newProduct(Product product) async {
     final url = Uri.https(_baseUrl, 'product.json');
-    product.picture = '';
+    // product.picture = '';
     final response = await http.post(url, body: product.toJson());
     final decodeData = json.decode(response.body);
 
@@ -72,31 +72,37 @@ class ServiceProducts extends ChangeNotifier {
 
     products.add(product);
 
-    return '';
+    return product.id!;
   }
 
-  void updatePictureCardProduct (String path) {
+  void updatePictureCardProduct(String path) {
     selectedProduct.picture = path;
     newPicture = File.fromUri(Uri(path: path));
 
     notifyListeners();
   }
 
-  Future<String?> uploadImage () async {
-    if(newPicture == null) return null;
+  Future<String?> uploadImage() async {
+    if (newPicture == null) return null;
 
     isSaving = true;
     notifyListeners();
 
-    final url = Uri.parse('uri');
+    final url = Uri.parse(
+        'https://api.cloudinary.com/v1_1/dwu49y0wo/image/upload?upload_preset=ywqrgvs0');
 
-    final imageUploadRequest = http.MultipartRequest(
-      'POST', url
-    );
-    final finalPath = await http.MultipartFile.fromPath('file', newPicture!.path );
+    final imageUploadRequest = http.MultipartRequest('POST', url);
+    final finalPath =
+        await http.MultipartFile.fromPath('file', newPicture!.path);
     imageUploadRequest.files.add(finalPath);
     final streamResponse = await imageUploadRequest.send();
     final res = await http.Response.fromStream(streamResponse);
+
+    if (res.statusCode != 200 && res.statusCode != 201) {
+      // print('fallido - upload');
+      // print(res.body);
+      return null;
+    }
 
     newPicture = null;
     final data = json.decode(res.body);

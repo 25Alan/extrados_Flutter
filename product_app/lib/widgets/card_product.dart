@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import 'package:product_app/models/models.dart';
@@ -22,7 +20,7 @@ class CardProduct extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           children: [
             _BackgroundCard(
-              urlImage: product.picture,
+              urlImage: product.picture!,
             ),
             _DetailsProduct(
               nameProduct: product.name,
@@ -172,35 +170,27 @@ class _DetailsProduct extends StatelessWidget {
 }
 
 class _BackgroundCard extends StatelessWidget {
-  const _BackgroundCard({required this.urlImage});
-  final String urlImage;
+  const _BackgroundCard({this.urlImage});
+  final String? urlImage;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(25),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         height: 400,
-        child: getImage(urlImage),
-      ),
-    );
-  }
-
-  Widget getImage (String picture) {
-    if(picture == '' ) {
-      return const Image(
+        child: urlImage == null
+            ? const Image(
                 image: AssetImage('assets/no-image.png'),
                 fit: BoxFit.cover,
-              );
-    }
-    if(picture.startsWith('http')) {
-      return FadeInImage(
+              )
+            : FadeInImage(
                 placeholder: const AssetImage('assets/jar-loading.gif'),
-                image: NetworkImage(urlImage),
+                image: NetworkImage(urlImage!),
                 fit: BoxFit.cover,
-              );
-    }
-    return Image.file( File(picture), fit: BoxFit.cover,);  
+              ),
+      ),
+    );
   }
 }

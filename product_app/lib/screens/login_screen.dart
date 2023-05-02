@@ -51,86 +51,84 @@ class LoginScreen extends StatelessWidget {
 }
 
 class _FormLogin extends StatelessWidget {
-  const _FormLogin({super.key});
+  const _FormLogin();
 
   @override
   Widget build(BuildContext context) {
     final formLogin = Provider.of<LoginProvider>(context);
 
-    return Container(
-      child: Form(
-          key: formLogin.keyForm,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            children: [
-              TextFormField(
-                autocorrect: false,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecorations.authInputDecorations(
-                  hintText: 'example@email.com',
-                  labelText: 'Email',
-                  prefixIcon: Icons.email,
-                ),
-                onChanged: (value) => formLogin.email = value,
-                validator: (value) {
-                  String pattern =
-                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                  RegExp regExp = RegExp(pattern);
+    return Form(
+        key: formLogin.keyForm,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          children: [
+            TextFormField(
+              autocorrect: false,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecorations.authInputDecorations(
+                hintText: 'example@email.com',
+                labelText: 'Email',
+                prefixIcon: Icons.email,
+              ),
+              onChanged: (value) => formLogin.email = value,
+              validator: (value) {
+                String pattern =
+                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                RegExp regExp = RegExp(pattern);
 
-                  return regExp.hasMatch(value ?? '')
-                      ? null
-                      : 'The entered is not valid';
-                },
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              TextFormField(
-                autocorrect: false,
-                obscureText: true,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecorations.authInputDecorations(
-                  hintText: '******',
-                  labelText: 'Password',
-                  prefixIcon: Icons.lock,
-                ),
-                onChanged: (value) => formLogin.password = value,
-                validator: (value) {
-                  return (value != null && value.length >= 6)
-                      ? null
-                      : 'Password must contain 6 characters';
-                },
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              MaterialButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                disabledColor: Colors.grey,
-                elevation: 8,
-                color: Colors.deepPurple,
-                onPressed: formLogin.isLoading
+                return regExp.hasMatch(value ?? '')
                     ? null
-                    : () async {
-                        FocusScope.of(context).unfocus();
-                        formLogin.isLoading = true;
-                        await Future.delayed(const Duration(seconds: 4));
-                        formLogin.isLoading = false;
-                        Navigator.pushReplacementNamed(context, 'home');
-                      },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  child: Text(
-                    formLogin.isLoading ? 'WAIT' : 'SIGN-IN',
-                    style: const TextStyle(color: Colors.white),
-                  ),
+                    : 'The entered is not valid';
+              },
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            TextFormField(
+              autocorrect: false,
+              obscureText: true,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecorations.authInputDecorations(
+                hintText: '******',
+                labelText: 'Password',
+                prefixIcon: Icons.lock,
+              ),
+              onChanged: (value) => formLogin.password = value,
+              validator: (value) {
+                return (value != null && value.length >= 6)
+                    ? null
+                    : 'Password must contain 6 characters';
+              },
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            MaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              disabledColor: Colors.grey,
+              elevation: 8,
+              color: Colors.deepPurple,
+              onPressed: formLogin.isLoading
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      formLogin.isLoading = true;
+                      await Future.delayed(const Duration(seconds: 4));
+                      formLogin.isLoading = false;
+                      Navigator.pushReplacementNamed(context, 'home');
+                    },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                child: Text(
+                  formLogin.isLoading ? 'WAIT' : 'SIGN-IN',
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
-            ],
-          )),
-    );
+            ),
+          ],
+        ));
   }
 }

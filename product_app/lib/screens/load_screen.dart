@@ -7,7 +7,7 @@ class LoadScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products'),
+        title: const Text('Products'),
       ),
       body: const Center(
         child: CircularProgressIndicator(
