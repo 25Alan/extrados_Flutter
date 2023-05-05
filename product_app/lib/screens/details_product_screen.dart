@@ -48,7 +48,7 @@ class _ProductDetailsBody extends StatelessWidget {
                   icon: const Icon(
                     Icons.arrow_back,
                     size: 40,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 0, 255, 1),
                   ),
                 ),
               ),
@@ -74,7 +74,33 @@ class _ProductDetailsBody extends StatelessWidget {
                   icon: const Icon(
                     Icons.camera,
                     size: 40,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 10, 254, 1),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 130,
+                right: 20,
+                child: IconButton(
+                  onPressed: () async {
+                    XFile? image = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    PickedFile? picker =
+                        image != null ? PickedFile(image.path) : null;
+                    /* final picker = new ImagePicker();
+                        final PickedFile? pickedFile =
+                            await picker.pickImage(source: ImageSource.gallery);*/
+
+                    if (picker == null) {
+                      return;
+                    }
+
+                    productServices.updatePictureCardProduct(picker.path);
+                  },
+                  icon: const Icon(
+                    Icons.file_download,
+                    size: 40,
+                    color: Color.fromARGB(255, 10, 254, 1),
                   ),
                 ),
               ),
@@ -98,6 +124,7 @@ class _ProductDetailsBody extends StatelessWidget {
                 if (imageUrl != null) productForm.product.picture = imageUrl;
 
                 await productServices.saveOrCreate(productForm.product);
+                ServiceNotifiers.showSnackBar('[update or creation confirmed]');
               },
         child: productServices.isSaving
             ? const CircularProgressIndicator(

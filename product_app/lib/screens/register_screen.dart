@@ -1,12 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:product_app/interface/input_decorations.dart';
 import 'package:product_app/providers/login_provider.dart';
+import 'package:product_app/services/service_auth.dart';
 import 'package:product_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
-import '../services/services.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Text('LOGIN', style: textTheme.headlineLarge),
+                Text('REGISTER', style: textTheme.headlineLarge),
                 const SizedBox(
                   height: 30,
                 ),
@@ -38,10 +40,9 @@ class LoginScreen extends StatelessWidget {
               height: 50,
             ),
             TextButton(
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, 'register'),
+              onPressed: () => Navigator.pushNamed(context, 'login'),
               child: const Text(
-                'CREATE A NEW ACCOUNT',
+                'Do you already have an account?',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -123,13 +124,12 @@ class _FormLogin extends StatelessWidget {
                           listen:
                               false); // listen en false por que es mala practica escuchar dentro de un método
                       formLogin.isLoading = true;
-                      final String? messageCreateUser = await authS.loginUser(
+                      final String? messageCreateUser = await authS.createUser(
                           formLogin.email, formLogin.password);
                       if (messageCreateUser == null) {
                         Navigator.pushReplacementNamed(context, 'home');
                       } else {
-                        ServiceNotifiers.showSnackBar(
-                            '${messageCreateUser} [invalid data]');
+                        print(messageCreateUser);
                         formLogin.isLoading = false;
                       }
                     },
@@ -137,7 +137,7 @@ class _FormLogin extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 child: Text(
-                  formLogin.isLoading ? 'WAIT' : 'SIGN-IN',
+                  formLogin.isLoading ? 'WAIT' : 'Create Account',
                   style: const TextStyle(color: Colors.white),
                 ),
               ),

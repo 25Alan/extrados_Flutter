@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:product_app/models/models.dart';
 
 class CardProduct extends StatelessWidget {
@@ -20,7 +20,7 @@ class CardProduct extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           children: [
             _BackgroundCard(
-              urlImage: product.picture!,
+              urlImage: product.picture,
             ),
             _DetailsProduct(
               nameProduct: product.name,
@@ -65,9 +65,9 @@ class _NotAvalaible extends StatelessWidget {
     return Container(
       width: 100,
       height: 70,
-      decoration: BoxDecoration(
-        color: Colors.yellow[800],
-        borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(0, 255, 47, 1),
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           bottomRight: Radius.circular(25),
         ),
@@ -78,7 +78,8 @@ class _NotAvalaible extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Text(
             'Not Avalaible',
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(
+                color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -97,7 +98,7 @@ class _PriceProduct extends StatelessWidget {
       width: 100,
       height: 70,
       decoration: const BoxDecoration(
-        color: Colors.indigo,
+        color: Color.fromRGBO(73, 73, 74, 1),
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(20),
           bottomLeft: Radius.circular(25),
@@ -141,7 +142,7 @@ class _DetailsProduct extends StatelessWidget {
           Text(
             nameProduct,
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: 25,
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
@@ -152,7 +153,7 @@ class _DetailsProduct extends StatelessWidget {
             idProduct,
             style: const TextStyle(
               fontSize: 15,
-              color: Colors.white,
+              color: Color.fromRGBO(0, 249, 145, 1),
             ),
           )
         ]),
@@ -161,7 +162,7 @@ class _DetailsProduct extends StatelessWidget {
   }
 
   BoxDecoration _boxDecorationsDetails() => const BoxDecoration(
-        color: Colors.indigo,
+        color: Color.fromRGBO(73, 73, 74, 1),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
           topRight: Radius.circular(25),
@@ -176,7 +177,7 @@ class _BackgroundCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(20),
       child: SizedBox(
         width: double.infinity,
         height: 400,
@@ -188,7 +189,7 @@ class _BackgroundCard extends StatelessWidget {
             : FadeInImage(
                 placeholder: const AssetImage('assets/jar-loading.gif'),
                 image: NetworkImage(urlImage!),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
       ),
     );

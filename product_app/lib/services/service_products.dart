@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:product_app/models/models.dart';
 import 'package:http/http.dart' as http;
 
 class ServiceProducts extends ChangeNotifier {
+  final storage = const FlutterSecureStorage();
   final String _baseUrl = 'flutter-extrados-default-rtdb.firebaseio.com';
   final List<Product> products = [];
   late Product selectedProduct;
@@ -21,7 +23,8 @@ class ServiceProducts extends ChangeNotifier {
   Future<List<Product>> loadProducts() async {
     isLoading = true;
     notifyListeners();
-    final url = Uri.https(_baseUrl, 'product.json');
+    final url = Uri.https(_baseUrl, 'product.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final response = await http.get(url);
 
     final Map<String, dynamic> productsMap = json.decode(response.body);
@@ -52,7 +55,8 @@ class ServiceProducts extends ChangeNotifier {
   }
 
   Future<String> updateProduct(Product product) async {
-    final url = Uri.https(_baseUrl, 'product/${product.id}.json');
+    final url = Uri.https(_baseUrl, 'product/${product.id}.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final response = await http.put(url, body: product.toJson());
     final recordData = response.body;
 

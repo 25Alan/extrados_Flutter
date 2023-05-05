@@ -29,7 +29,7 @@ class ProductImage extends StatelessWidget {
   }
 
   BoxDecoration _decorationsDetails() => BoxDecoration(
-          color: Colors.black,
+          color: Color.fromARGB(255, 0, 0, 0),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(45),
             topRight: Radius.circular(45),
@@ -49,7 +49,6 @@ class ProductImage extends StatelessWidget {
         fit: BoxFit.cover,
       );
     }
-
     if (urlImage.startsWith('http')) {
       return FadeInImage(
         placeholder: const AssetImage('assets/jar-loading.gif'),
@@ -57,7 +56,6 @@ class ProductImage extends StatelessWidget {
         fit: BoxFit.cover,
       );
     }
-
     return Image.file(
       File(urlImage),
       fit: BoxFit.cover,
