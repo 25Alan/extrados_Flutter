@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1025179061649",
+    "project_id": "flutter-extrados-notifiers",
+    "storage_bucket": "flutter-extrados-notifiers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025179061649:android:e81cb92544edf4384f5e30",
+        "android_client_info": {
+          "package_name": "com.alanromero.notifiers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025179061649-c7mm8qmj1tffa4v4cguompfj17hv6jis.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alanromero.notifiers",
+            "certificate_hash": "c0de74f04db9c7dad9e6b38dab4ae472d6559882"
+          }
+        },
+        {
+          "client_id": "1025179061649-s3uijmg3oobcf9rm7ls2j4tpi95vmmfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH_Mw2DM2Fq5Q0FMWz502LfK3vqcy4OJM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025179061649-s3uijmg3oobcf9rm7ls2j4tpi95vmmfu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
