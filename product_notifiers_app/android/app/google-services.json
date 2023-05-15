@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "23718005584",
+    "project_id": "extrados-cli",
+    "storage_bucket": "extrados-cli.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23718005584:android:124bce299dd80ebe41ba55",
+        "android_client_info": {
+          "package_name": "com.example.product_notifiers_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23718005584-vq94hnhcvfke5cn1d3q4q2elvechn6km.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAKHUCRWHodJmlJqryr1oBU_PYkSW96UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23718005584-vq94hnhcvfke5cn1d3q4q2elvechn6km.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
