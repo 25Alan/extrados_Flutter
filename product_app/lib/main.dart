@@ -3,10 +3,31 @@ import 'package:product_app/screens/screens.dart';
 import 'package:product_app/services/services.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(const AppState());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PushNotificationsService.initializeApp();
+  runApp(const AppState());
+}
 
-class AppState extends StatelessWidget {
+class AppState extends StatefulWidget {
   const AppState({super.key});
+
+  @override
+  State<AppState> createState() => _AppState();
+}
+
+class _AppState extends State<AppState> {
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  @override
+  void initState() {
+    super.initState();
+    PushNotificationsService.messageStream.listen((message) {
+      print('My app : $message');
+
+      navigatorKey.currentState
+          ?.pushReplacementNamed('check', arguments: message);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,29 +36,21 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ServiceProducts()),
         ChangeNotifierProvider(create: (_) => ServiceAuth()),
       ],
-      child: const MyApp(),
-    );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Product App',
-      initialRoute: 'check',
-      routes: {
-        'login': (_) => const LoginScreen(),
-        'register': (_) => const RegisterScreen(),
-        'check': (_) => const CheckScreen(),
-        'home': (_) => const HomeScreen(),
-        'product': (_) => const DetailsProductScreen(),
-      },
-      scaffoldMessengerKey: ServiceNotifiers.messengerKey,
-      theme: customTheme,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Product App',
+        initialRoute: 'check',
+        navigatorKey: navigatorKey,
+        routes: {
+          'login': (_) => const LoginScreen(),
+          'register': (_) => const RegisterScreen(),
+          'check': (_) => const CheckScreen(),
+          'home': (_) => const HomeScreen(),
+          'product': (_) => const DetailsProductScreen(),
+        },
+        scaffoldMessengerKey: ServiceNotifiers.messengerKey,
+        theme: customTheme,
+      ),
     );
   }
 }

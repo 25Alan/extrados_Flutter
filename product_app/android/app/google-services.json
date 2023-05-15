@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1025913611953",
+    "firebase_url": "https://flutter-extrados-default-rtdb.firebaseio.com",
+    "project_id": "flutter-extrados",
+    "storage_bucket": "flutter-extrados.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025913611953:android:82aa8f41e72eac9a14a490",
+        "android_client_info": {
+          "package_name": "com.alanromeroapp.product_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025913611953-q16rapglv3edhh4s8t1knk5ft4ltkha9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alanromeroapp.product_app",
+            "certificate_hash": "304ca3e818b6347ecdbd1b75dcdd8ca75f6e512c"
+          }
+        },
+        {
+          "client_id": "1025913611953-jr5ttkqnj8pctcvg8ml49iitkhur966t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwhmCiGKvHrWi8uJRH5Tj9taiLHTIS06g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025913611953-jr5ttkqnj8pctcvg8ml49iitkhur966t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
