@@ -23,10 +23,11 @@ class ServicePushNotifiers {
   static void sendMessage(String token, String body, String title) async {
     try {
       await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        Uri.parse(
+            'https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send'),
         headers: <String, String>{
           'Content-Type': 'application/json',
-          'Authorization': '',
+          'Authorization': 'Bearer ya29.ElqKBGN2Ri_Uz...HnS_uNreA',
         },
         body: jsonEncode(
           <String, dynamic>{
@@ -104,7 +105,7 @@ class ServicePushNotifiers {
     );
     reqPermission();
     // await setupFlutterNotifications();
-    // showFlutterNotification();
+    // await showFlutterNotification();
 
     FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);
     FirebaseMessaging.onMessage.listen(_onMessageHandler);
