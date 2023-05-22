@@ -5,7 +5,6 @@ import 'counter/view/counter_page.dart';
 
 class CounterApp extends MaterialApp {
   @override
-  // TODO: implement debugShowCheckedModeBanner
   bool get debugShowCheckedModeBanner => false;
   const CounterApp({super.key}) : super(home: const CounterPage());
 }
