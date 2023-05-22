@@ -16,8 +16,7 @@ import 'package:calc/screens/SelectCalc.dart' as _i3;
 import 'package:flutter/material.dart' as _i6;
 
 abstract class $AppRouter extends _i5.RootStackRouter {
-  $AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+  $AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey]) : super();
 
   @override
   final Map<String, _i5.PageFactory> pagesMap = {

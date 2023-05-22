@@ -9,7 +9,7 @@ import 'package:product_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class DetailsProductScreen extends StatelessWidget {
-  Product newProduct;
+  late Product newProduct;
   DetailsProductScreen({super.key, newProduct});
 
   @override

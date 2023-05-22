@@ -49,7 +49,7 @@ class _AppStateState extends State<AppState> {
           'register': (_) => const RegisterScreen(),
           'check': (_) => const CheckScreen(),
           'home': (_) => const HomeScreen(),
-          'product': (_) => const DetailsProductScreen(),
+          'product': (_) => DetailsProductScreen(),
         },
         scaffoldMessengerKey: ServiceNotifiers.messengerKey,
         theme: customTheme,
