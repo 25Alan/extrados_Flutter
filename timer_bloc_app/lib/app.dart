@@ -7,6 +7,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Timer Bloc',
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(109, 234, 255, 1),
