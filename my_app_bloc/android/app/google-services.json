@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "990822151219",
+    "project_id": "myfirst-bloc",
+    "storage_bucket": "myfirst-bloc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990822151219:android:5ae7c6cc3d97f4a3c81f46",
+        "android_client_info": {
+          "package_name": "com.example.my_app_bloc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMZjaE2M8LOvscD8fHCEq4lYOm8yGUorU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
