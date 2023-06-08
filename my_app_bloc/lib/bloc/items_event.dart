@@ -1,14 +1,12 @@
 part of 'items_bloc.dart';
 
 sealed class ItemsEvent extends Equatable {
-  const ItemsEvent();
-
   @override
   List<Object> get props => [];
 }
 
 class AddItem extends ItemsEvent {
-  const AddItem(this.item);
+  AddItem(this.item);
 
   final Item item;
 
@@ -17,7 +15,7 @@ class AddItem extends ItemsEvent {
 }
 
 class RemoveItem extends ItemsEvent {
-  const RemoveItem(this.item);
+  RemoveItem(this.item);
   final Item item;
 
   @override

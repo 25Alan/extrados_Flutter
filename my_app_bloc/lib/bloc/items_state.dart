@@ -1,22 +1,20 @@
 part of 'items_bloc.dart';
 
 class ItemsState extends Equatable {
-  const ItemsState(this.itemsList);
-
-  final List<Item> itemsList;
-
   @override
   List<Object> get props => [];
 }
 
-class ItemsInitial extends ItemsState {
-  const ItemsInitial(super.itemsList);
-}
+// class ItemsInitial extends ItemsState {
+//   ItemsInitial();
+// }
 
 class LoadItem extends ItemsState {
-  const LoadItem(super.itemsList);
+  LoadItem(this.items);
+  final List<Item> items;
+
+  @override
+  List<Object> get props => [items];
 }
 
-class CleanList extends ItemsState {
-  const CleanList(super.itemsList);
-}
+class CleanList extends ItemsState {}
