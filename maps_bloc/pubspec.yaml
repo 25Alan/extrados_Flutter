@@ -7,8 +7,13 @@ environment:
   sdk: '>=3.0.1 <4.0.0'
 
 dependencies:
+  bloc: ^8.1.2
+  equatable: ^2.0.5
+  firebase_core: ^2.13.1
   flutter:
     sdk: flutter
+  google_maps_flutter: ^2.3.0
+  google_maps_flutter_android: ^2.4.15
 
 dev_dependencies:
   flutter_test:

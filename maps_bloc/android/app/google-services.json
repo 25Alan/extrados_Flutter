@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "575509751740",
+    "project_id": "geolocation-bloc",
+    "storage_bucket": "geolocation-bloc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575509751740:android:a040a6f5fe721f26d66db9",
+        "android_client_info": {
+          "package_name": "com.example.maps_bloc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575509751740-935r0e48laild9i436mqn91lg8n8nv2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa-8pHGPk3010eEiFt-X47Me07ckoDfPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575509751740-935r0e48laild9i436mqn91lg8n8nv2i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
